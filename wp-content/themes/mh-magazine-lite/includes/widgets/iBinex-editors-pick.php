@@ -5,7 +5,7 @@
 class iBinex_editors_pick extends WP_Widget {
     function __construct() {
 		parent::__construct(
-			'iBinex_editors_pick', esc_html_x('iBinex Editors Pick', 'widget name', 'mh-magazine-lite'),
+			'iBinex_editors_pick', esc_html_x('iBinex Editor\'s Pick', 'widget name', 'ibinex'),
 			array(
 				'classname' => 'mh_custom_posts',
 				'description' => esc_html__('Custom Posts Widget to display posts based on categories or tags.', 'mh-magazine-lite'),
@@ -19,28 +19,17 @@ class iBinex_editors_pick extends WP_Widget {
 
     function widget($args, $instance) {
 
-	    $defaults = array('title' => 'Editor\'s Picks', 'category' => 0, 'tags' => '', 'postcount' => 5, 'offset' => 0, 'sticky' => 1);
+	    $defaults = array('title' => 'Editor\'s Picks', 'postcount' => 5);
 		$instance = wp_parse_args($instance, $defaults);
 	   	$query_args = array();
-	 //   	if (0 !== $instance['category']) {
-		// 	$query_args['cat'] = $instance['category'];
-		// }
-		// if (!empty($instance['tags'])) {
-		// 	$tag_slugs = explode(',', $instance['tags']);
-		// 	$tag_slugs = array_map('trim', $tag_slugs);
-		// 	$query_args['tag_slug__in'] = $tag_slugs;
-		// }
+
 		if (!empty($instance['postcount'])) {
 			$query_args['posts_per_page'] = $instance['postcount'];
 		}
-		// if (0 !== $instance['offset']) {
-		// 	$query_args['offset'] = $instance['offset'];
-		// }
-		// if (1 === $instance['sticky']) {
-		// 	$query_args['ignore_sticky_posts'] = true;
-		// }
-
-		$query_args['post__in'] = $editors_pick;
+		
+		/* query posts with 
+			category 'editor' */
+		$query_args['cat'] = 100;
 
 
 		$widget_loop = new WP_Query($query_args);  
@@ -90,44 +79,25 @@ class iBinex_editors_pick extends WP_Widget {
         if (!empty($new_instance['title'])) {
 			$instance['title'] = sanitize_text_field($new_instance['title']);
 		}
-        if (0 !== absint($new_instance['category'])) {
-			$instance['category'] = absint($new_instance['category']);
-		}
-		if (!empty($new_instance['tags'])) {
-			$tag_slugs = explode(',', $new_instance['tags']);
-			$tag_slugs = array_map('sanitize_title', $tag_slugs);
-			$instance['tags'] = implode(', ', $tag_slugs);
-		}
+
+
 		if (0 !== absint($new_instance['postcount'])) {
-			if (absint($new_instance['postcount']) > 50) {
-				$instance['postcount'] = 50;
+			if (absint($new_instance['postcount']) > 10) {
+				$instance['postcount'] = 10;
 			} else {
 				$instance['postcount'] = absint($new_instance['postcount']);
 			}
 		}
-		if (0 !== absint($new_instance['offset'])) {
-			if (absint($new_instance['offset']) > 50) {
-				$instance['offset'] = 50;
-			} else {
-				$instance['offset'] = absint($new_instance['offset']);
-			}
-		}
-		$instance['sticky'] = (!empty($new_instance['sticky'])) ? 1 : 0;
         return $instance;
     }
 
     function form($instance) {
-	    $defaults = array('title' => '', 'category' => 0, 'tags' => '', 'postcount' => 5, 'offset' => 0, 'sticky' => 1);
+	    $defaults = array('title' => '', 'postcount' => 5);
         $instance = wp_parse_args($instance, $defaults); ?>
 		<p>
         	<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title:', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo esc_attr($instance['title']); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" id="<?php echo esc_attr($this->get_field_id('title')); ?>" />
         </p>
-        
-	<!-- 	<p>
-        	<label for="<?php echo esc_attr($this->get_field_id('tags')); ?>"><?php esc_html_e('Filter Posts by Tags (e.g. lifestyle):', 'ibinex'); ?></label>
-			<input class="widefat" type="text" value="<?php echo esc_attr($instance['tags']); ?>" name="<?php echo esc_attr($this->get_field_name('tags')); ?>" id="<?php echo esc_attr($this->get_field_id('tags')); ?>" />
-	    </p> -->
         <p>
         	<label for="<?php echo esc_attr($this->get_field_id('postcount')); ?>"><?php esc_html_e('Post Count (max. 50):', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo absint($instance['postcount']); ?>" name="<?php echo esc_attr($this->get_field_name('postcount')); ?>" id="<?php echo esc_attr($this->get_field_id('postcount')); ?>" />
@@ -138,14 +108,15 @@ class iBinex_editors_pick extends WP_Widget {
 
 
     public $editors_pick = array();
+    public $pick;
 	function editors_picks_actionmark()
 	{	
-		if (isset($_POST['post_id_array'])) {
-			$postID_array = $_POST['post_id_array'];
-			$editors_pick = array_unique($postID_array);
-			
-			$query_args['post__in'] = $editors_pick;
+		if (isset($_POST['post_id'])) {
+			 $pick = $_POST['post_id'];
 
+			/* append 'editor' 
+				category to a post */
+			wp_set_post_categories($pick, 100, true);
 			wp_die();
 		}
 	}
