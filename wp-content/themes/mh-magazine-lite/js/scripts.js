@@ -92,11 +92,12 @@ jQuery(document).ready(function($){
 	$('.editors-picks-btn').click(function() {
 		var postID = $(this).data('id');
 		$.ajax({
-			url: "./wp-admin/admin-ajax.php",
+			url: ajaxurl,
 			type: "POST",
 			data: {post_id : postID}
 		}).done(function(response) {
 			$('.editors-picks-btn').hide();
+			console.log(response);
 		});
 	});
 

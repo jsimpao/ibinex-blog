@@ -115,6 +115,12 @@ if ( is_user_logged_in() ) {
 wp_die( '0' );
 
 
-if (isset($_POST['post_id'])) {
-	var_dump(123);
+
+$editors_picks = array();
+
+if (is_admin()) {
+	if (isset($_POST['post_id'])) {
+		$post_id = $_POST['post_id'];
+		var_dump($post_id);
+	}
 }

@@ -146,10 +146,4 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	require_once('woocommerce/mh-custom-woocommerce.php');
 }
 
-
-if (isset($_POST['post_id'])) {
-	var_dump(123);
-}
-
-
 ?>
