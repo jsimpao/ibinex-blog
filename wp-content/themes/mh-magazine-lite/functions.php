@@ -128,18 +128,37 @@ if (!function_exists('mh_magazine_lite_widgets_init')) {
 add_action('widgets_init', 'mh_magazine_lite_widgets_init');
 
 
-if (!function_exists('editors_picks_actionmark')) {
-	function editors_picks_actionmark()
+
+// add_action('wp_ajax_my_action', 'editors_picks_actionmark');
+// add_action('wp_ajax_nopriv_my_action', 'editors_picks_actionmark');
+// $editors_pick = array();
+// if (!function_exists('editors_picks_actionmark')) {
+// 	function editors_picks_actionmark()
+// 	{	
+
+		
+
+// 			if (isset($_POST['post_id_array']))
+// 			 {
+// 				$postID_array = $_POST['post_id_array'];
+// 				$editors_pick = array_unique($postID_array);
+// 				print_r($editors_pick);
+// 			}
+
+// 	}
+// }
+
+add_action('get_posts_ids', 'editors_picks_actionmark');
+
+if (!function_exists('enqueue_js_variable')) {
+	function enqueue_js_variable()
 	{
 		wp_enqueue_script('ajax-script', get_template_directory_uri() . '/js/ibinex-custom.js', array('jquery'));
 		wp_localize_script( 'ajax-script', 'my_ajax_object',
             array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 	}
 }
-
-add_action( 'wp_enqueue_scripts', 'editors_picks_actionmark' );
-
-add_action('wp_ajax_nopriv_editors_picks_actionmark', 'editors_picks_actionmark');
+add_action( 'wp_enqueue_scripts', 'enqueue_js_variable' );
 
 /***** Include Several Functions *****/
 

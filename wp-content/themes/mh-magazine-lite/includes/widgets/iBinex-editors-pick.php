@@ -12,6 +12,9 @@ class iBinex_editors_pick extends WP_Widget {
 				'customize_selective_refresh' => true
 			)
 		);
+
+		add_action('wp_ajax_my_action', array($this,'editors_picks_actionmark'));
+		add_action('wp_ajax_nopriv_my_action', array($this,'editors_picks_actionmark'));
 	}
 
     function widget($args, $instance) {
@@ -19,26 +22,28 @@ class iBinex_editors_pick extends WP_Widget {
 	    $defaults = array('title' => 'Editor\'s Picks', 'category' => 0, 'tags' => '', 'postcount' => 5, 'offset' => 0, 'sticky' => 1);
 		$instance = wp_parse_args($instance, $defaults);
 	   	$query_args = array();
-	   	if (0 !== $instance['category']) {
-			$query_args['cat'] = $instance['category'];
-		}
-		if (!empty($instance['tags'])) {
-			$tag_slugs = explode(',', $instance['tags']);
-			$tag_slugs = array_map('trim', $tag_slugs);
-			$query_args['tag_slug__in'] = $tag_slugs;
-		}
+	 //   	if (0 !== $instance['category']) {
+		// 	$query_args['cat'] = $instance['category'];
+		// }
+		// if (!empty($instance['tags'])) {
+		// 	$tag_slugs = explode(',', $instance['tags']);
+		// 	$tag_slugs = array_map('trim', $tag_slugs);
+		// 	$query_args['tag_slug__in'] = $tag_slugs;
+		// }
 		if (!empty($instance['postcount'])) {
 			$query_args['posts_per_page'] = $instance['postcount'];
 		}
-		if (0 !== $instance['offset']) {
-			$query_args['offset'] = $instance['offset'];
-		}
-		if (1 === $instance['sticky']) {
-			$query_args['ignore_sticky_posts'] = true;
-		}
+		// if (0 !== $instance['offset']) {
+		// 	$query_args['offset'] = $instance['offset'];
+		// }
+		// if (1 === $instance['sticky']) {
+		// 	$query_args['ignore_sticky_posts'] = true;
+		// }
+
+		$query_args['post__in'] = $editors_pick;
 
 
-		$widget_loop = new WP_Query($query_args);
+		$widget_loop = new WP_Query($query_args);  
         echo $args['before_widget'];
         	if (!empty($instance['title'])) {
 				echo $args['before_title'];
@@ -119,10 +124,10 @@ class iBinex_editors_pick extends WP_Widget {
 			<input class="widefat" type="text" value="<?php echo esc_attr($instance['title']); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" id="<?php echo esc_attr($this->get_field_id('title')); ?>" />
         </p>
         
-		<p>
+	<!-- 	<p>
         	<label for="<?php echo esc_attr($this->get_field_id('tags')); ?>"><?php esc_html_e('Filter Posts by Tags (e.g. lifestyle):', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo esc_attr($instance['tags']); ?>" name="<?php echo esc_attr($this->get_field_name('tags')); ?>" id="<?php echo esc_attr($this->get_field_id('tags')); ?>" />
-	    </p>
+	    </p> -->
         <p>
         	<label for="<?php echo esc_attr($this->get_field_id('postcount')); ?>"><?php esc_html_e('Post Count (max. 50):', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo absint($instance['postcount']); ?>" name="<?php echo esc_attr($this->get_field_name('postcount')); ?>" id="<?php echo esc_attr($this->get_field_id('postcount')); ?>" />
@@ -130,6 +135,20 @@ class iBinex_editors_pick extends WP_Widget {
 	    
     	<?php
     }
+
+
+    public $editors_pick = array();
+	function editors_picks_actionmark()
+	{	
+		if (isset($_POST['post_id_array'])) {
+			$postID_array = $_POST['post_id_array'];
+			$editors_pick = array_unique($postID_array);
+			
+			$query_args['post__in'] = $editors_pick;
+
+			wp_die();
+		}
+	}
 }
 
 ?>

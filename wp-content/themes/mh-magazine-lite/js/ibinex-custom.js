@@ -1,10 +1,15 @@
 jQuery(document).ready(function($) {
-	$('.mh-loop-content').click('.editors-picks-btn', function() {
+
+	var editors_pick = [];
+
+	$('.editors-picks-btn').click(function() {
 
 		var postID = $(this).data('id');
+
+		editors_pick.push(postID);
 		var data = {
-				'action' : 'editors_picks_actionmark',
-				'post_id' : postID
+				'action' : 'my_action',
+				'post_id_array' : editors_pick
 		};
 		jQuery.post(
 			my_ajax_object.ajax_url, data, function(response) {
@@ -12,3 +17,6 @@ jQuery(document).ready(function($) {
 		});
 	});
 });
+
+
+	
