@@ -2,6 +2,11 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header mh-clearfix"><?php
 		the_title('<h1 class="entry-title">', '</h1>');
+		 if (current_user_can('administrator')) { ?>
+			<div>
+				<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>
+			</div>
+		<?php } 
 		mh_post_header(); ?>
 	</header>
 	<?php dynamic_sidebar('posts-1'); ?>

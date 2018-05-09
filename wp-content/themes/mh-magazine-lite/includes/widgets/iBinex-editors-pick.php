@@ -26,12 +26,12 @@ class iBinex_editors_pick extends WP_Widget {
 		if (!empty($instance['postcount'])) {
 			$query_args['posts_per_page'] = $instance['postcount'];
 		}
-		
+
 		/* query posts with 
 			category 'editor' */
 		$query_args['cat'] = 100;
-
-
+		$query_args['order'] = 'ASC';
+		
 		$widget_loop = new WP_Query($query_args);  
         echo $args['before_widget'];
         	if (!empty($instance['title'])) {

@@ -23,8 +23,10 @@
 		<div class="mh-loop-excerpt">
 			<?php the_excerpt(); ?>
 		</div>
-		<div>
-			<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>
-		</div>
 	</div>
+<?php if (current_user_can('administrator')) { ?>
+	<div>
+		<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>
+	</div>
+<?php } ?>
 </article>
