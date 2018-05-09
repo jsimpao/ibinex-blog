@@ -1,0 +1,228 @@
+
+.ccpw-ticker-cont{
+  width:100%;
+  overflow: hidden;
+  cursor:pointer;
+}
+.ccpw-footer-ticker-fixedbar{
+position:fixed;    
+border-top: 1px solid #ccc;
+bottom: 0px!important; 
+font-family: Arial, Helvetica, sans-serif; 
+width:100%; 
+z-index:99999; 
+background: #fff;
+font-weight: bold;
+cursor: pointer;
+}
+
+.ccpw-header-ticker-fixedbar {
+position:fixed;    
+border-top: 1px solid #ccc;
+font-family: Arial, Helvetica, sans-serif; 
+width:100%; 
+z-index:99999; 
+background: #fff;
+font-weight: bold;
+cursor: pointer;
+}
+
+
+ul.marquee-content-items li{
+	float:left;
+	margin:0 10px;
+	list-style:none;
+}
+.ccpw-fixedbar {
+border-top: 1px solid #ccc;
+bottom: 0px!important; 
+ position:fixed;
+width:100%; 
+z-index:99999; 
+background: #fff;
+}
+
+ul.marquee-content-items li:after{
+	content: "|";
+	margin: 0 1em;
+}
+.coin-container img{
+	height:24px;
+   /* width: 20px;*/
+}
+.ticker td{
+	border: none;
+}
+.ccpw_widget .ccpw_table td{
+	border: none;
+}
+.ccpw_widget .ccpw_table tr{
+	border-bottom: 1px solid black;
+}
+.ccpw_table th{
+	border: none;
+}
+.ccpw_table span.name {
+	font-weight:bold;
+}
+.ccpw_table span.name {
+    font-size: 16px;
+    margin-left: 6px;
+}
+.ccpw_table span.coin_symbol{
+ font-size:14px;
+   
+}
+.ccpw-ticker-cont span.name {
+    font-size: 14px;
+    margin-left: 6px;
+}
+
+.ccpw-ticker-cont span.price {
+     font-size: 12px;
+    margin-left: 8px;
+}
+.ccpw_table  th, td{
+	border:0;
+	border-bottom:1px solid #cacaca!important;
+
+}
+.ccpw_table span.price {
+    font-size: 12px;
+    margin-left: 8px;
+}
+span.changes.up {
+    color: green;
+    margin-left: 3px;
+}
+span.changes.down {
+    color: red;
+	margin-left: 3px;
+}
+.image-coin{
+	width:40px;
+}
+.ccpw_icon img {
+    margin-left: 8px;
+    vertical-align: top;
+    margin-top: 5px;
+}
+
+/* version 1.4 styles */
+
+.ccpw_table .ccpw_icon.ccpw_coin_logo{
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+}
+
+.ccpw_table .ccpw_icon.ccpw_coin_logo img{
+	height:32px;
+}
+.ccpw_table .ccpw_coin_info{
+ display: inline-block;
+    vertical-align: middle;
+    padding:8px 4px;
+}
+
+.ccpw_table tr td{
+	padding:8px 4px;
+}
+.tickercontainer {
+  /*  background-color: #ffffff;*/
+    margin-bottom: 2px;
+}
+@media only screen and (max-width: 500px) {
+.ccpw_coin_info .coin_symbol{
+	display:none;
+}
+}
+
+/*-----MULTICURRENCY TAB CSS--------*/
+.currency_tabs {
+    display: inline-block;
+	border: 1px solid #ddd;
+	width:100%;
+	max-width:480px;
+	padding:0;
+	margin:5px auto;
+}
+.currency_tabs ul li:before, .currency_tabs ul li:after {
+	display:none;
+}
+.currency_tabs ul.multi-currency-tab,
+.currency_tabs ul.multi-currency-tab-content {
+    display: inline-block;
+    list-style: none;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+.currency_tabs ul.multi-currency-tab li {
+    display: inline;
+    cursor: pointer;
+    width: 20%;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 0 !IMPORTANT;
+    white-space: nowrap;
+    float: left;
+	font-size:15px;
+}
+.currency_tabs ul.multi-currency-tab li:last-child {
+    border-right: 0px;
+}
+.currency_tabs ul.multi-currency-tab li.active-tab {
+    border-bottom: 0px;
+	font-weight:bold;
+}
+.currency_tabs ul.multi-currency-tab-content li {
+    padding: 10px;
+    margin: 0;
+	width:100%;
+	border-bottom:1px solid #ddd;
+	position:relative;
+}
+.currency_tabs .mtab-content {
+    display: inline-block;
+    font-size: 14px;
+    width: 100%;
+}
+.currency_tabs .mtab-content .mtab_price {
+    display: inline-block;
+    margin: 0 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.currency_tabs span.mtab_icon {
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.currency_tabs span.mtab_icon img {
+    vertical-align: top;
+}
+.currency_tabs .mtab-content span.mtab_.down {
+    color: red;
+}
+.currency_tabs .mtab-content span.mtab_.up {
+    color: green;
+}
+.currency_tabs .mtab-content span.mtab_.up, .currency_tabs .mtab-content span.mtab_.down {
+    white-space: nowrap;
+	float:right;
+}
+.widget .currency_tabs .mtab-content span.mtab_.up, .widget .currency_tabs .mtab-content span.mtab_.down {position:absolute;top:30%;right:6px;font-size:13px !important;}
+.widget .currency_tabs ul.multi-currency-tab li,.widget .currency_tabs .mtab-content {font-size:13px;}
+.widget .currency_tabs .mtab-content .mtab_price {width:100%;margin:2px 0px;}
+	
+@media only screen and (max-width: 500px) {
+	.currency_tabs .mtab-content span.mtab_.up, .currency_tabs .mtab-content span.mtab_.down {position:absolute;top:30%;right:6px;font-size:13px !important;}
+	.currency_tabs ul.multi-currency-tab li,.currency_tabs .mtab-content {font-size:13px;}
+	.currency_tabs .mtab-content .mtab_price {width:100%;margin:2px 0px;}
+}
