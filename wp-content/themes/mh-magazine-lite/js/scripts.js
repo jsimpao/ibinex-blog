@@ -87,18 +87,4 @@ jQuery(document).ready(function($){
 			e.preventDefault();
 		});
 	});
-
-
-	$('.editors-picks-btn').click(function() {
-		var postID = $(this).data('id');
-		$.ajax({
-			url: ajaxurl,
-			type: "POST",
-			data: {post_id : postID}
-		}).done(function(response) {
-			$('.editors-picks-btn').hide();
-			console.log(response);
-		});
-	});
-
 });

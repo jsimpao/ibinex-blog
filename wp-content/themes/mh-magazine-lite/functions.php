@@ -1,5 +1,4 @@
 <?php
-
 /***** Fetch Theme Data & Options *****/
 
 $mh_magazine_lite_data = wp_get_theme('mh-magazine-lite');
@@ -35,6 +34,7 @@ function mh_after_footer() {
 function mh_before_container_close() {
     do_action('mh_before_container_close');
 }
+
 
 /***** Theme Setup *****/
 
@@ -127,6 +127,20 @@ if (!function_exists('mh_magazine_lite_widgets_init')) {
 }
 add_action('widgets_init', 'mh_magazine_lite_widgets_init');
 
+
+if (!function_exists('editors_picks_actionmark')) {
+	function editors_picks_actionmark()
+	{
+		wp_enqueue_script('ajax-script', get_template_directory_uri() . '/js/ibinex-custom.js', array('jquery'));
+		wp_localize_script( 'ajax-script', 'my_ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+	}
+}
+
+add_action( 'wp_enqueue_scripts', 'editors_picks_actionmark' );
+
+add_action('wp_ajax_nopriv_editors_picks_actionmark', 'editors_picks_actionmark');
+
 /***** Include Several Functions *****/
 
 if (is_admin()) {
@@ -145,5 +159,4 @@ include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 if (is_plugin_active('woocommerce/woocommerce.php')) {
 	require_once('woocommerce/mh-custom-woocommerce.php');
 }
-
 ?>
