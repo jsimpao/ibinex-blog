@@ -43,20 +43,13 @@ class iBinex_editors_pick extends WP_Widget {
         echo $args['before_widget'];
         	if (!empty($instance['title'])) {
 				echo $args['before_title'];
-					// if ($instance['category'] != 0) {
-						echo '<a href="' . esc_url(get_category_link($instance['category'])) . '" class="mh-widget-title-link">';
-					// }
-
-					if (is_admin()) {
-						echo '<a href="'. esc_url(get_category_link('editor')) .'">';
+					if (current_user_can('administrator')) {
+						echo '<a href="' . esc_url(get_category_link(100)) . '">';
 					}
 					echo esc_html(apply_filters('widget_title', $instance['title']));
-					if (is_admin()) {
+					if (current_user_can('administrator')) {
 						echo '</a>';
 					}
-					// if ($instance['category'] != 0) {
-					// 	echo '</a>';
-					// }
 				echo $args['after_title'];
 			} ?>
 			<ul class="mh-custom-posts-widget mh-clearfix"><?php
