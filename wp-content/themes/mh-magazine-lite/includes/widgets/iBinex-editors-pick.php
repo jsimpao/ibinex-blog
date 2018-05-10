@@ -30,7 +30,7 @@ class iBinex_editors_pick extends WP_Widget {
 		/* query posts with 
 			category 'editor' */
 		$query_args['cat'] = 100;
-		$query_args['order'] = 'ASC';
+		$query_args['orderby'] = 'meta_value';
 		
 		$widget_loop = new WP_Query($query_args);  
         echo $args['before_widget'];
