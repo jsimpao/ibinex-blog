@@ -13,8 +13,11 @@ class iBinex_editors_pick extends WP_Widget {
 			)
 		);
 
-		add_action('wp_ajax_my_action', array($this,'editors_picks_actionmark'));
-		add_action('wp_ajax_nopriv_my_action', array($this,'editors_picks_actionmark'));
+		add_action('wp_ajax_add_to_editors_action', array($this,'add_to_editors_pick'));
+		add_action('wp_ajax_nopriv_add_to_editors_action', array($this,'add_to_editors_pick'));
+
+		add_action('wp_ajax_remove_from_editors_action', array($this,'remove_from_editors_pick'));
+		add_action('wp_ajax_nopriv_remove_from_editors_action', array($this,'remove_from_editors_pick'));
 	}
 
     function widget($args, $instance) {
@@ -111,7 +114,7 @@ class iBinex_editors_pick extends WP_Widget {
     public $editors_pick = array();
     public $pick;
     public $meta_value_counter = 1;
-	function editors_picks_actionmark()
+	public function add_to_editors_pick()
 	{	
 		if (isset($_POST['post_id'])) {
 			 $pick = $_POST['post_id'];
@@ -123,6 +126,21 @@ class iBinex_editors_pick extends WP_Widget {
 			wp_die();
 		}
 	}
+
+	public function remove_from_editors_pick()
+	{
+		if (isset($_POST['post_id'])) {
+			
+			$pick = $_POST['post_id'];
+
+			/* remove 'editor' category
+				from a post*/
+			wp_remove_object_terms($pick, 'editor', 'category');	
+			wp_die();
+		}
+	}
+
+
 }
 
 ?>

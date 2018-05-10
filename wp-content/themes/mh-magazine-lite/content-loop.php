@@ -25,8 +25,20 @@
 		</div>
 	</div>
 <?php if (current_user_can('administrator')) { ?>
-	<div>
-		<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>
+	<div class="admin-btns">
+		<?php 
+			if (has_category(100, $post->ID)) 
+				{ ?> 
+
+				<button id="remove<?php echo $post->ID; ?>" class="remove-editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Remove from Editor's Picks</button>		
+		<?php		
+				}
+				else
+				{ ?>
+				<button id="add<?php echo $post->ID; ?>" class="add-editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>	
+		<?php
+				}
+		 ?>
 	</div>
 <?php } ?>
 </article>
