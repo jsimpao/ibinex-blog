@@ -8,7 +8,7 @@ class iBinex_editors_pick extends WP_Widget {
 			'iBinex_editors_pick', esc_html_x('iBinex Editor\'s Pick', 'widget name', 'ibinex'),
 			array(
 				'classname' => 'mh_custom_posts',
-				'description' => esc_html__('Custom Posts Widget to display posts based on categories or tags.', 'mh-magazine-lite'),
+				'description' => esc_html__('Custom Posts Widget to display posts Editor\'s choice.', 'ibinex'),
 				'customize_selective_refresh' => true
 			)
 		);
