@@ -150,7 +150,6 @@ class WPP_Widget extends WP_Widget {
         $wpp_image = WPP_Image::get_instance();
 
         include( plugin_dir_path( __FILE__ ) . '/widget-form.php' );
-
     }
 
     /**
@@ -237,7 +236,7 @@ class WPP_Widget extends WP_Widget {
         $instance['thumbnail']['height'] = 15;
 
         // can create thumbnails
-        if ( $wpp_image->can_create_thumbnails() ) {
+        // if ( $wpp_image->can_create_thumbnails() ) {
 
             $instance['thumbnail']['active'] = isset( $new_instance['thumbnail-active'] );
             $instance['thumbnail']['build'] = $new_instance['thumbnail-size-source'];
@@ -261,7 +260,7 @@ class WPP_Widget extends WP_Widget {
                 }
             }
 
-        }
+        // }
 
         $instance['rating'] = isset( $new_instance['rating'] );
         $instance['stats_tag']['comment_count'] = isset( $new_instance['comment_count'] );

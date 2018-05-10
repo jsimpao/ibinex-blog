@@ -27,31 +27,41 @@ class iBinex_related_posts_large extends WP_Widget {
         $instance = wp_parse_args($instance, $defaults);
 		$query_args = array();
 		$query_args['ignore_sticky_posts'] = $instance['sticky'];
+
+		/* set the order to random */
 		$query_args['orderby'] = 'rand';
 		
 		if (!empty($instance['postcount'])) {
 			$query_args['posts_per_page'] = $instance['postcount'];
 		}
 
-		/* Exclude the current post from the LOOP (query) */
+		/* Exclude the current post 
+			from the LOOP (query) */
 		$query_args['post__not_in'] = array($current_post_ID);
 
-		/* get the slugs of the current post */
+		/* get the tag slugs 
+			of the current post 
+			then store the count*/
 		$cnt = array();
 		foreach (get_the_tags($current_post_ID) as $tag) {
 			array_push($current_post_tag_slugs, $tag->slug);
 			$cnt[] = $tag->count;
 		}
 
-		/* check if the total number of posts is less than the desired post count */
+		/* check if the total number 
+			of posts is less than the 
+			desired post count */
 		if ( (array_sum($cnt) - count($current_post_tag_slugs)) < $query_args['posts_per_page'] ) 
 		{
-			// if less, get posts according to category instead
+
+		/* if less, get posts according 
+			to category instead */
 			$query_args['category__and'] = wp_get_post_categories($post->ID)[0];
 		}
 		else
 		{
-			/* push the array of slugs into the query variable*/
+
+		/* else get posts according to tags*/
 			$query_args['tag_slug__in'] = $current_post_tag_slugs;
 		}
 
@@ -95,14 +105,11 @@ class iBinex_related_posts_large extends WP_Widget {
         <p>
         	<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title:', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo esc_attr($instance['title']); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" id="<?php echo esc_attr($this->get_field_id('title')); ?>" />
-        </p>
-		
+        </p>	
         <p>
         	<label for="<?php echo esc_attr($this->get_field_id('postcount')); ?>"><?php esc_html_e('Post Count (max. 50):', 'ibinex'); ?></label>
 			<input class="widefat" type="text" value="<?php echo absint($instance['postcount']); ?>" name="<?php echo esc_attr($this->get_field_name('postcount')); ?>" id="<?php echo esc_attr($this->get_field_id('postcount')); ?>" />
-	    </p>
-	    
-	   
+	    </p>  
     	<?php
     }
 }

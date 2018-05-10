@@ -13,9 +13,12 @@ class iBinex_editors_pick extends WP_Widget {
 			)
 		);
 
+
+		/* hook the ajax function into the wp_ajax */
 		add_action('wp_ajax_add_to_editors_action', array($this,'add_to_editors_pick'));
 		add_action('wp_ajax_nopriv_add_to_editors_action', array($this,'add_to_editors_pick'));
 
+		/* hook the ajax function into the wp_ajax */
 		add_action('wp_ajax_remove_from_editors_action', array($this,'remove_from_editors_pick'));
 		add_action('wp_ajax_nopriv_remove_from_editors_action', array($this,'remove_from_editors_pick'));
 	}
@@ -40,13 +43,20 @@ class iBinex_editors_pick extends WP_Widget {
         echo $args['before_widget'];
         	if (!empty($instance['title'])) {
 				echo $args['before_title'];
-					if ($instance['category'] != 0) {
+					// if ($instance['category'] != 0) {
 						echo '<a href="' . esc_url(get_category_link($instance['category'])) . '" class="mh-widget-title-link">';
+					// }
+
+					if (is_admin()) {
+						echo '<a href="'. esc_url(get_category_link('editor')) .'">';
 					}
 					echo esc_html(apply_filters('widget_title', $instance['title']));
-					if ($instance['category'] != 0) {
+					if (is_admin()) {
 						echo '</a>';
 					}
+					// if ($instance['category'] != 0) {
+					// 	echo '</a>';
+					// }
 				echo $args['after_title'];
 			} ?>
 			<ul class="mh-custom-posts-widget mh-clearfix"><?php
