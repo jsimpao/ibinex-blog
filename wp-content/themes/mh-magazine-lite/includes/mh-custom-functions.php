@@ -110,6 +110,8 @@ if (!function_exists('mh_magazine_lite_loop_layout')) {
 
 if (!function_exists('mh_magazine_lite_post_meta')) {
 	function mh_magazine_lite_post_meta() {
+		$cat_array = array();
+
 		echo '<p class="mh-meta entry-meta">' . "\n";
 			echo '<span class="entry-meta-date updated"><i class="fa fa-clock-o"></i><a href="' . esc_url(get_month_link(get_the_time('Y'), get_the_time('m'))) . '">' . get_the_date() . '</a></span>' . "\n";
 			echo '<span class="entry-meta-author author vcard"><i class="fa fa-user"></i><a class="fn" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>' . "\n";
