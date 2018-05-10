@@ -4,7 +4,19 @@
 		the_title('<h1 class="entry-title">', '</h1>');
 		 if (current_user_can('administrator')) { ?>
 			<div>
-				<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>
+				<?php 
+					if (has_category(100, $post->ID)) 
+						{ ?> 
+
+						<button class="remove-editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Remove from Editor's Picks</button>		
+				<?php		
+						}
+						else
+						{ ?>
+						<button class="editors-picks-btn" data-id="<?php echo $post->ID; ?>" type="button">Add to Editor's Picks</button>	
+				<?php
+						}
+				 ?>
 			</div>
 		<?php } 
 		mh_post_header(); ?>

@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 		var postID = $(this).data('id');
 	
 		var data = {
-				'action' : 'my_action',
+				'action' : 'add_to_editor',
 				'post_id' : postID
 		};
 		jQuery.post(
@@ -19,6 +19,11 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+
+	$('.remove-editors-picks-btn').click(function() {
+		var postID = $(this).data('id');
+
+	});
 
 
 });

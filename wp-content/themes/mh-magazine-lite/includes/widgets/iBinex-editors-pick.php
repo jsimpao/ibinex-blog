@@ -30,6 +30,7 @@ class iBinex_editors_pick extends WP_Widget {
 		/* query posts with 
 			category 'editor' */
 		$query_args['cat'] = 100;
+		$query_args['meta_key'] = 'editors_pick';
 		$query_args['orderby'] = 'meta_value';
 		
 		$widget_loop = new WP_Query($query_args);  
@@ -109,14 +110,16 @@ class iBinex_editors_pick extends WP_Widget {
 
     public $editors_pick = array();
     public $pick;
+    public $meta_value_counter = 1;
 	function editors_picks_actionmark()
 	{	
 		if (isset($_POST['post_id'])) {
 			 $pick = $_POST['post_id'];
-
+			 $meta_value_counter++;
 			/* append 'editor' 
 				category to a post */
 			wp_set_post_categories($pick, 100, true);
+			add_post_meta($pick, 'editors_pick', $meta_value_counter);
 			wp_die();
 		}
 	}
